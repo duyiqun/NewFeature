@@ -2,9 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/newWidget" android:title="新控件">
         <menu>
-            <item android:id="@+id/left_menu_recyclerView" android:title="RecyclerView"></item>
-
+            <item android:id="@+id/left_menu_recyclerView" android:title="RecyclerView" android:icon="@mipmap/search"></item>
+            <item android:id="@+id/left_menu_tabLayout" android:title="TabLayout" android:icon="@mipmap/heart"></item>
+            <item android:id="@+id/left_menu_appBarLayout" android:title="AppBarLayout" android:icon="@mipmap/msg"></item>
+            <item android:id="@+id/left_menu_collaspingToolBarLayout" android:title="CollaspingToolBarLayout" android:icon="@mipmap/refresh"></item>
         </menu>
     </item>
-    <item android:id="@+id/newPermission" android:title="新权限机制"></item>
+    <item android:id="@+id/newPermission" android:title="新权限机制">
+        <menu>
+            <item android:title="RecyclerView" android:icon="@mipmap/search"></item>
+            <item android:title="RecyclerView" android:icon="@mipmap/heart"></item>
+            <item android:title="RecyclerView" android:icon="@mipmap/msg"></item>
+            <item android:title="RecyclerView" android:icon="@mipmap/refresh"></item>
+        </menu>
+    </item>
 </menu>
