@@ -47,6 +47,15 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="#0000ff"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
     </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>
