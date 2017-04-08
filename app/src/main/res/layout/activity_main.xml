@@ -43,7 +43,8 @@
             android:layout_width="260dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:headerLayout="@layout/navigation_header_view">
+            app:headerLayout="@layout/navigation_header_view"
+            app:menu="@menu/left_menu">
 
         </android.support.design.widget.NavigationView>
 
