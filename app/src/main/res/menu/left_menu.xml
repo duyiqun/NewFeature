@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/newWidget" android:title="新控件"></item>
+    <item android:id="@+id/newWidget" android:title="新控件">
+        <menu>
+            <item android:id="@+id/left_menu_recyclerView" android:title="RecyclerView"></item>
+
+        </menu>
+    </item>
     <item android:id="@+id/newPermission" android:title="新权限机制"></item>
 </menu>
