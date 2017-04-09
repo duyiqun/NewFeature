@@ -8,12 +8,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     private Toolbar mToorbar;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
@@ -47,6 +50,28 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToorbar, R.string.open, R.string.close);
         actionBarDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
+        //自己给抽屉菜单添加监听器
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                Log.d(TAG, "onDrawerSlide:" + slideOffset);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                Toast.makeText(MainActivity.this, "菜单被打开了", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                Toast.makeText(MainActivity.this, "菜单被关闭了", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
     }
 
     @Override
