@@ -1,5 +1,6 @@
 package com.qun.newfeature;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.left_menu_recyclerView:
-                        Toast.makeText(MainActivity.this, "跳转到recyclerView界面", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "跳转到recyclerView界面", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, RecyclerViewActivity.class));
                         break;
                     case R.id.left_menu_tabLayout:
                         Toast.makeText(MainActivity.this, "跳转到tabLayout界面", Toast.LENGTH_SHORT).show();
