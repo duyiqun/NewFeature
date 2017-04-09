@@ -2,6 +2,7 @@ package com.qun.newfeature;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -70,6 +71,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerStateChanged(int newState) {
 
+            }
+        });
+        //给NavigationView绑定菜单条目的点击事件
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.left_menu_recyclerView:
+                        Toast.makeText(MainActivity.this, "跳转到recyclerView界面", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.left_menu_tabLayout:
+                        Toast.makeText(MainActivity.this, "跳转到tabLayout界面", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.left_menu_appBarLayout:
+                        Toast.makeText(MainActivity.this, "跳转到appBarLayout界面", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.left_menu_collaspingToolBarLayout:
+                        Toast.makeText(MainActivity.this, "跳转到collaspingToolBarLayout界面", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
             }
         });
     }
