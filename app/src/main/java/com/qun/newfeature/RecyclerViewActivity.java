@@ -2,6 +2,8 @@ package com.qun.newfeature;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -32,7 +34,8 @@ public class RecyclerViewActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         List<DataBean> dataBeanList = initData();
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(dataBeanList);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(dataBeanList, this);
+        //仅仅给RecyclerView设置Adapter是不会显示界面，还必须给RecyclerView设置布局管理器
         mRecyclerView.setAdapter(recyclerViewAdapter);
         mToolbar.setTitle("RecyclerView的使用");
         //初始化ToolBar
@@ -68,7 +71,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.listView_vertical:
-
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(this, OrientationHelper.VERTICAL, false));
                 break;
             case R.id.listView_horizontal:
 

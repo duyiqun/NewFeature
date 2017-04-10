@@ -1,9 +1,14 @@
 package com.qun.newfeature;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -14,9 +19,11 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
 
     private List<DataBean> mDataBeanList;
+    private Context mContext;
 
-    public RecyclerViewAdapter(List<DataBean> dataBeanList) {
-        mDataBeanList = dataBeanList;
+    public RecyclerViewAdapter(List<DataBean> dataBeanList, Context context) {
+        this.mDataBeanList = dataBeanList;
+        this.mContext = context;
     }
 
     @Override
@@ -35,9 +42,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return recyclerViewHolder;
     }
 
+    /**
+     * 每滚动出来一个条目，该方法被RecyclerView回调一次，用于给holder绑定对应角标的数据
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-
+        DataBean dataBean = mDataBeanList.get(position);
+//        holder.mImageView.setImageResource(dataBean.imageId);
+        Glide.with(mContext).load(dataBean.imageId).into(holder.mImageView);
+        holder.mTextView.setText(dataBean.title);
     }
 
     @Override
@@ -47,8 +63,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
+        private final ImageView mImageView;
+        private final TextView mTextView;
+
         public RecyclerViewHolder(View itemView) {
             super(itemView);
+            mImageView = (ImageView) itemView.findViewById(R.id.imageView);
+            mTextView = (TextView) itemView.findViewById(R.id.textView);
 
         }
     }
