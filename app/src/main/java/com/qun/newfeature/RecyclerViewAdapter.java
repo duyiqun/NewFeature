@@ -70,7 +70,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.imageView);
             mTextView = (TextView) itemView.findViewById(R.id.textView);
-
         }
     }
 }

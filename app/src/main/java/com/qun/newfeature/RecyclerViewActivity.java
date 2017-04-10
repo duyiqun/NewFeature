@@ -2,9 +2,11 @@ package com.qun.newfeature;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,19 +76,19 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(this, OrientationHelper.VERTICAL, false));
                 break;
             case R.id.listView_horizontal:
-
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(this, OrientationHelper.HORIZONTAL, false));
                 break;
             case R.id.gridView_vertical:
-
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3, OrientationHelper.VERTICAL, false));
                 break;
             case R.id.gridView_horizontal:
-
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3, OrientationHelper.HORIZONTAL, false));
                 break;
             case R.id.staggerView_vertical:
-
+                mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));
                 break;
             case R.id.staggerView_horizontal:
-
+                mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.HORIZONTAL));
                 break;
         }
         return super.onOptionsItemSelected(item);
