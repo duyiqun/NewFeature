@@ -1,6 +1,8 @@
 package com.qun.newfeature;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +30,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
             .mipmap.p32, R.mipmap.p33, R.mipmap.p34, R.mipmap.p35, R.mipmap.p36, R.mipmap
             .p37, R.mipmap.p38, R.mipmap.p39, R.mipmap.p40, R.mipmap.p41, R.mipmap.p42, R
             .mipmap.p43, R.mipmap.p44};
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +47,15 @@ public class RecyclerViewActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         //打开系统自带的导航图标
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //给ToolBar的导航图标设置点击监听
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE,getResources().getColor(R.color.colorAccent));
     }
 
     private List<DataBean> initData() {
