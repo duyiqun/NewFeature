@@ -94,6 +94,7 @@ public class TabLayoutActivity extends AppCompatActivity {
             public void run() {
                 int currentItem = mViewPager.getCurrentItem();
                 int newItem = (currentItem + 1) % mViewPager.getAdapter().getCount();
+                Log.d(TAG, "翻页: "+newItem);
                 mViewPager.setCurrentItem(newItem, true);
                 //上面的任务执行完了，让Handler再执行一个延时任务
                 mHandler.postDelayed(this, 1000);
@@ -127,6 +128,7 @@ public class TabLayoutActivity extends AppCompatActivity {
          */
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
+            Log.d(TAG, "初始化条目: "+position);
             ImageView imageView = new ImageView(TabLayoutActivity.this);
             imageView.setImageResource(mStraggeredIcons[position]);
             //给ImageView设置宽和高属性，相当于布局文件中的 android:layout_width="match_parent"和android:layout_height="wrap_content"
@@ -148,6 +150,7 @@ public class TabLayoutActivity extends AppCompatActivity {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             //super.destroyItem(container, position, object);
+            Log.d(TAG, "销毁条目: "+position);
             container.removeView((View) object);
         }
 
@@ -155,5 +158,12 @@ public class TabLayoutActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return "美女" + position;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //释放资源（handler的定时任务）
+        mHandler.removeCallbacksAndMessages(null);
     }
 }
