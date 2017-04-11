@@ -29,6 +29,9 @@ public class TabLayoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_layout);
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        //将mTabLayout和mViewPager绑定
+        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);//让Tab能够滚动
         mViewPager.setAdapter(new MyPageAdapter());
     }
 
@@ -75,6 +78,11 @@ public class TabLayoutActivity extends AppCompatActivity {
         public void destroyItem(ViewGroup container, int position, Object object) {
             //super.destroyItem(container, position, object);
             container.removeView((View) object);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "美女" + position;
         }
     }
 }
