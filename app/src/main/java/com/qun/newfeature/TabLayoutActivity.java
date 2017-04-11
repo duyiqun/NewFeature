@@ -1,6 +1,8 @@
 package com.qun.newfeature;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -9,12 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class TabLayoutActivity extends AppCompatActivity {
 
     private static final String TAG = "TabLayoutActivity";
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+    private FloatingActionButton mFloatingActionButton;
     private int[] mStraggeredIcons = new int[]{R.mipmap.p1, R.mipmap.p2, R.mipmap.p3, R
             .mipmap.p4, R.mipmap.p5, R.mipmap.p6, R.mipmap.p7, R.mipmap.p8, R.mipmap.p9, R
             .mipmap.p10, R.mipmap.p11, R.mipmap.p12, R.mipmap.p13, R.mipmap.p14, R.mipmap
@@ -29,6 +33,7 @@ public class TabLayoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout);
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         //将mTabLayout和mViewPager绑定
@@ -49,6 +54,20 @@ public class TabLayoutActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(TabLayoutActivity.this, "你想干嘛", Toast.LENGTH_SHORT).show();
+                Snackbar.make(mTabLayout, "要自动播放吗？", Snackbar.LENGTH_LONG)
+                        .setAction("确定", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(TabLayoutActivity.this, "被点击了", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show();
             }
         });
     }
