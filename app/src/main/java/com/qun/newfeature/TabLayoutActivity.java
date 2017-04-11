@@ -1,6 +1,8 @@
 package com.qun.newfeature;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -11,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class TabLayoutActivity extends AppCompatActivity {
 
@@ -19,6 +20,8 @@ public class TabLayoutActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private FloatingActionButton mFloatingActionButton;
+    private boolean isStart = false;
+    private Handler mHandler = new Handler();
     private int[] mStraggeredIcons = new int[]{R.mipmap.p1, R.mipmap.p2, R.mipmap.p3, R
             .mipmap.p4, R.mipmap.p5, R.mipmap.p6, R.mipmap.p7, R.mipmap.p8, R.mipmap.p9, R
             .mipmap.p10, R.mipmap.p11, R.mipmap.p12, R.mipmap.p13, R.mipmap.p14, R.mipmap
@@ -60,16 +63,47 @@ public class TabLayoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(TabLayoutActivity.this, "你想干嘛", Toast.LENGTH_SHORT).show();
-                Snackbar.make(mTabLayout, "要自动播放吗？", Snackbar.LENGTH_LONG)
+                ObjectAnimator.ofFloat(mFloatingActionButton, "rotation", 0, 360).setDuration(1000).start();
+                Snackbar.make(mTabLayout, isStart ? "要停止播放吗？" : "要开始播放吗？", Snackbar.LENGTH_LONG)
                         .setAction("确定", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(TabLayoutActivity.this, "被点击了", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(TabLayoutActivity.this, "被点击了", Toast.LENGTH_SHORT).show();
+                                if (isStart) {
+                                    //停止
+                                    stopPlay();
+                                } else {
+                                    //开始
+                                    startPlay();
+                                }
+                                isStart = !isStart;
                             }
                         })
                         .show();
             }
         });
+    }
+
+    private void startPlay() {
+        //在让Handler执行定时任务之前，为了防止有老的任务没有被销毁，因此先清空一下Handler的任务
+        mHandler.removeCallbacksAndMessages(null);
+//        mViewPager.setCurrentItem();
+        //让Handler执行定时周期性的任务，不断的更新ViewPager当前的页数
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int currentItem = mViewPager.getCurrentItem();
+                int newItem = (currentItem + 1) % mViewPager.getAdapter().getCount();
+                mViewPager.setCurrentItem(newItem, true);
+                //上面的任务执行完了，让Handler再执行一个延时任务
+                mHandler.postDelayed(this, 1000);
+            }
+        }, 1000);
+    }
+
+    private void stopPlay() {
+        //清空Handler发送的任务，这样所有Handler发送的不管是什么任何和消息都没有了
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     class MyPageAdapter extends PagerAdapter {
