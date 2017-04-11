@@ -29,10 +29,10 @@ public class TabLayoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_layout);
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mViewPager.setAdapter();
+        mViewPager.setAdapter(new MyPageAdapter());
     }
 
-    class MyPageAdapter extends PagerAdapter{
+    class MyPageAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
@@ -41,13 +41,14 @@ public class TabLayoutActivity extends AppCompatActivity {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return true;
+            return view == object;
         }
 
         /**
-         *  需要根据当前滚动到的脚标获取数据，然后将数据显示到View上，同时需要将这个View添加到ViewPager上
+         * 需要根据当前滚动到的脚标获取数据，然后将数据显示到View上，同时需要将这个View添加到ViewPager上
+         *
          * @param container 就是ViewPager对象本身
-         * @param position 当前ViewPager滚动到的脚标
+         * @param position  当前ViewPager滚动到的脚标
          * @return
          */
         @Override
@@ -55,14 +56,25 @@ public class TabLayoutActivity extends AppCompatActivity {
             ImageView imageView = new ImageView(TabLayoutActivity.this);
             imageView.setImageResource(mStraggeredIcons[position]);
             //给ImageView设置宽和高属性，相当于布局文件中的 android:layout_width="match_parent"和android:layout_height="wrap_content"
-//            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams();
-//            imageView.setLayoutParams();
-            return super.instantiateItem(container, position);
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            imageView.setLayoutParams(layoutParams);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            //还必须将创建出来的View添加到container中
+            container.addView(imageView);
+            return imageView;
         }
 
+        /***
+         * 用于销毁较老的View对象，必须覆写该方法
+         * 将较老的View从ViewPager中移除
+         * @param container ViewPager本身
+         * @param position
+         * @param object
+         */
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
+            //super.destroyItem(container, position, object);
+            container.removeView((View) object);
         }
     }
 }
