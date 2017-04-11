@@ -5,12 +5,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 public class TabLayoutActivity extends AppCompatActivity {
 
+    private static final String TAG = "TabLayoutActivity";
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private int[] mStraggeredIcons = new int[]{R.mipmap.p1, R.mipmap.p2, R.mipmap.p3, R
@@ -33,6 +35,22 @@ public class TabLayoutActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);//让Tab能够滚动
         mViewPager.setAdapter(new MyPageAdapter());
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.d(TAG, "onPageScrolled: " + positionOffset);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                ToastUtil.showToast(TabLayoutActivity.this, position + "");
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     class MyPageAdapter extends PagerAdapter {
