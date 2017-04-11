@@ -84,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, RecyclerViewActivity.class));
                         break;
                     case R.id.left_menu_tabLayout:
-                        Toast.makeText(MainActivity.this, "跳转到tabLayout界面", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "跳转到tabLayout界面", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, TabLayoutActivity.class));
                         break;
                     case R.id.left_menu_appBarLayout:
                         Toast.makeText(MainActivity.this, "跳转到appBarLayout界面", Toast.LENGTH_SHORT).show();
