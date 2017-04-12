@@ -88,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, TabLayoutActivity.class));
                         break;
                     case R.id.left_menu_appBarLayout:
-                        Toast.makeText(MainActivity.this, "跳转到appBarLayout界面", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "跳转到appBarLayout界面", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, AppBarLayoutActivity.class));
                         break;
                     case R.id.left_menu_collaspingToolBarLayout:
                         Toast.makeText(MainActivity.this, "跳转到collaspingToolBarLayout界面", Toast.LENGTH_SHORT).show();
