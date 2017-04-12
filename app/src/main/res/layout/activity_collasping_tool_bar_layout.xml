@@ -12,10 +12,13 @@
         android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            app:collapsedTitleTextAppearance="@style/collapsedTitleTextAppearance"
-            app:expandedTitleTextAppearance="@style/expandedTitleTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:collapsedTitleGravity="left"
+            app:collapsedTitleTextAppearance="@style/collapsedTitleTextAppearance"
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleGravity="right|bottom"
+            app:expandedTitleTextAppearance="@style/expandedTitleTextAppearance"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
