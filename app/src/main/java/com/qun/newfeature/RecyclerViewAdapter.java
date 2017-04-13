@@ -62,6 +62,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             }
         });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onLongClick(position);
+                }
+                return true;
+            }
+        });
     }
 
     public interface onItemClickListener {
@@ -73,7 +82,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private onItemClickListener mOnItemClickListener;
 
     public void setOnItemClickListener(onItemClickListener onItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
+        this.mOnItemClickListener = onItemClickListener;
     }
 
     @Override

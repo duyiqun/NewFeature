@@ -53,7 +53,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
             @Override
             public void onLongClick(int position) {
-
+                Toast.makeText(RecyclerViewActivity.this, "长按：" + position, Toast.LENGTH_SHORT).show();
             }
         });
         mToolbar.setTitle("RecyclerView的使用");
