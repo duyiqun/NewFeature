@@ -77,6 +77,13 @@
                 android:onClick="submit"
                 android:text="提交数据"/>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="writeSdcard"
+                android:text="写SDCard"
+                android:textAllCaps="false"/>
+
         </LinearLayout>
 
         <android.support.design.widget.NavigationView

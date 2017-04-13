@@ -1,11 +1,15 @@
 package com.qun.newfeature;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.PermissionChecker;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,9 +26,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    public static final int REQUEST_CODE = 1;
     private Toolbar mToorbar;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
@@ -188,6 +197,40 @@ public class MainActivity extends AppCompatActivity {
             mTilPwd.setError("");
             mEtPwd.requestFocus(View.FOCUS_RIGHT);
             return;
+        }
+    }
+
+    public void writeSdcard(View view) {
+
+        //检查当前App有没有被授权写SDCard权限
+        //如果没有被授权，则动态（弹出对话框）申请一个权限
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PermissionChecker.PERMISSION_GRANTED) {
+            //用户还没有给我授权这个Manifest.permission.WRITE_EXTERNAL_STORAGE 权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+            return;
+        }
+        File file = new File(Environment.getExternalStorageDirectory(), "name.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write("abc");
+            fileWriter.close();
+            ToastUtil.showToast(this, "写完了");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED) {
+                //用户授权了
+                Toast.makeText(this, "用户授权了", Toast.LENGTH_SHORT).show();
+            } else {
+                //用户拒绝了
+                Toast.makeText(this, "用户拒绝了", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
