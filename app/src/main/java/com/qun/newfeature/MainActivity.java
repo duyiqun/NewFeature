@@ -5,15 +5,21 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToorbar;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
+    private EditText mEtUsername;
+    private EditText mEtPwd;
+    private TextInputLayout mTilUsername;
+    private TextInputLayout mTilPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +109,29 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        mEtUsername = (EditText) findViewById(R.id.et_username);
+        mEtPwd = (EditText) findViewById(R.id.et_pwd);
+        mTilUsername = (TextInputLayout) findViewById(R.id.til_username);
+        mTilPwd = (TextInputLayout) findViewById(R.id.til_pwd);
+        mEtPwd.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            /**
+             *
+             * @param v 其实就是mEtPwd对象
+             * @param actionId 键盘右下角的Action键的ID
+             * @param event
+             * @return
+             */
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                Log.d(TAG, "onEditorAction: v=" + v + "/actionId=" + actionId);
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    ToastUtil.showToast(MainActivity.this, "被点击了");
+                }
+                //返回false代表系统输入法还会走其原本的逻辑，比如自动隐藏输入法
+                //返回true代表不让系统输入法走其原本的逻辑
+                return true;
+            }
+        });
     }
 
     @Override
@@ -128,5 +161,33 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void submit(View view) {
+        String username = mEtUsername.getText().toString().trim();
+        String pwd = mEtPwd.getText().toString().trim();
+        if (TextUtils.isEmpty(username) || username.length() > 10) {
+            //显示错误信息
+            mTilUsername.setErrorEnabled(true);
+            mTilUsername.setError("用户名不合法");
+            //让EdUsername获取到焦点即可
+            mEtUsername.requestFocus();
+            return;
+        } else {
+            //隐藏错误信息
+            mTilUsername.setErrorEnabled(false);
+            mTilUsername.setError("");
+        }
+        if (TextUtils.isEmpty(pwd)) {
+            //显示错误信息
+            mTilPwd.setErrorEnabled(true);
+            mTilPwd.setError("密码不合法");
+        } else {
+            //隐藏错误信息
+            mTilPwd.setErrorEnabled(false);
+            mTilPwd.setError("");
+            mEtPwd.requestFocus(View.FOCUS_RIGHT);
+            return;
+        }
     }
 }
