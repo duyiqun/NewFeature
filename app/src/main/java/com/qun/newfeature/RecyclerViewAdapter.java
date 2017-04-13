@@ -49,11 +49,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * @param position
      */
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
         DataBean dataBean = mDataBeanList.get(position);
 //        holder.mImageView.setImageResource(dataBean.imageId);
         Glide.with(mContext).load(dataBean.imageId).into(holder.mImageView);
         holder.mTextView.setText(dataBean.title);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onClick(position);
+                }
+            }
+        });
+    }
+
+    public interface onItemClickListener {
+        void onClick(int position);
+
+        void onLongClick(int position);
+    }
+
+    private onItemClickListener mOnItemClickListener;
+
+    public void setOnItemClickListener(onItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 
     @Override

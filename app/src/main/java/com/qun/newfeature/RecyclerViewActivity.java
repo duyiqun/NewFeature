@@ -45,6 +45,17 @@ public class RecyclerViewActivity extends AppCompatActivity {
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(dataBeanList, this);
         //仅仅给RecyclerView设置Adapter是不会显示界面，还必须给RecyclerView设置布局管理器
         mRecyclerView.setAdapter(recyclerViewAdapter);
+        recyclerViewAdapter.setOnItemClickListener(new RecyclerViewAdapter.onItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Toast.makeText(RecyclerViewActivity.this, "Activity：" + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(int position) {
+
+            }
+        });
         mToolbar.setTitle("RecyclerView的使用");
         //初始化ToolBar
         setSupportActionBar(mToolbar);
