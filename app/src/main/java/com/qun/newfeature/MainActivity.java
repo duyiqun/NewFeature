@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     public static final int REQUEST_CODE = 1;
-    private Toolbar mToorbar;
+    private Toolbar mToolbar;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private EditText mEtUsername;
@@ -48,16 +48,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //找到ToolBar控件
-        mToorbar = (Toolbar) findViewById(R.id.toolbar);
-        mToorbar.setTitle("主标题");//如果想修改主标题，一定得在 setSupportActionBar(mToolbar);之前，否则没效果
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("主标题");//如果想修改主标题，一定得在 setSupportActionBar(mToolbar);之前，否则没效果
         //用这个ToolBar替换ActionBar
-        setSupportActionBar(mToorbar);//使用该代码之前必须确保：当前Activity使用的主题不能带有ActionBar
+        setSupportActionBar(mToolbar);//使用该代码之前必须确保：当前Activity使用的主题不能带有ActionBar
         //给ToolBar添加子标题
-        mToorbar.setSubtitle("子标题");
-        mToorbar.setTitleTextColor(Color.RED);
-//        mToorbar.setNavigationIcon(R.mipmap.ic_launcher);
+        mToolbar.setSubtitle("子标题");
+        mToolbar.setTitleTextColor(Color.RED);
+//        mToolbar.setNavigationIcon(R.mipmap.ic_launcher);
         //给ToolBar的导航图标添加事件
-//        mToorbar.setNavigationOnClickListener(new View.OnClickListener() {
+//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                Toast.makeText(MainActivity.this, "点击导航图标", Toast.LENGTH_SHORT).show();
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         //打开ToolBar的左侧的导航图标
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToorbar, R.string.open, R.string.close);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
         actionBarDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         //自己给抽屉菜单添加监听器
